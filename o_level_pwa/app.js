@@ -722,13 +722,13 @@ function renderAssistant(app){
       const data = await resp.json();
       if(data.error){
         state.chatHistory[state.chatHistory.length-1] = {role:'assistant', text:'Assistant abhi available nahi hai.'};
-        noteEl.textContent = 'Ye feature sirf Netlify par deploy karne ke baad kaam karta hai (local test mein nahi) — README dekhein.';
+        noteEl.textContent = 'Debug info: ' + data.error;
       } else {
         state.chatHistory[state.chatHistory.length-1] = {role:'assistant', text:data.reply};
       }
     }catch(e){
       state.chatHistory[state.chatHistory.length-1] = {role:'assistant', text:'Assistant abhi available nahi hai.'};
-      noteEl.textContent = 'Ye feature sirf Netlify par deploy karne ke baad kaam karta hai (local test mein nahi) — README dekhein.';
+      noteEl.textContent = 'Debug info: ' + e.message + ' (ho sakta hai ye local server ho, Netlify par nahi — README dekhein)';
     }
     Store.save(state); drawChat();
   }
